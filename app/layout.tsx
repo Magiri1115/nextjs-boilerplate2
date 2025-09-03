@@ -1,31 +1,25 @@
+// app/layout.tsx
 import "./globals.css";
 import { ReactNode } from "react";
-import TabNav from "./components/TabNav";
 
 export const metadata = {
   title: "My Website",
-  description: "Responsive Next.js layout",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="ja">
       <head>
-        {/* Google Fonts + Material Icons */}
+        {/* Google Fonts（Montserrat / Roboto）のみ読み込み。Material Icons は削除） */}
         <link
-          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Roboto:wght@400;700&display=swap"
           rel="stylesheet"
         />
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
       </head>
       <body>
-        <div style={{ display: "flex" }}>
-          {/* コンテンツエリア */}
-          <div style={{ flex: 1, padding: "20px", marginRight: "240px" }}>
-            {children}
-          </div>
-          {/* タブナビ */}
-          <TabNav />
+        <div className="app-root">
+          {/* content エリア（右固定ナビがあるときは CSS の media query で余白を確保します） */}
+          <main className="content">{children}</main>
         </div>
       </body>
     </html>
