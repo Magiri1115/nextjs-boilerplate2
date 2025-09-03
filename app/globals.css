@@ -22,9 +22,10 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Roboto', sans-serif;
+  background: #FFFFFF;
+  color: #1A1A1A;
   margin: 0;
-  font-family: sans-serif;
   text-align: center;
 }
 
@@ -52,6 +53,13 @@ h1 {
   main {
     background: #f0f9ff;
   }
+  .tab-nav {
+    flex-direction: row;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
 }
 
 /* タブレット (600px～1023px) */
@@ -62,6 +70,10 @@ h1 {
   }
   main {
     background: #fff7e6;
+  }
+  .tab-nav {
+    flex-direction: row;
+    border-bottom: 1px solid #E0E0E0;
   }
 }
 
@@ -74,4 +86,90 @@ h1 {
   main {
     background: #f9fff0;
   }
+  .tab-nav {
+    flex-direction: column;
+    width: 240px;
+    border-top: none;
+    border-left: none;
+    border-right: 1px solid #E0E0E0;
+    height: 100vh;
+    position: fixed;
+    right: 0;
+    top: 0;
+  }
+  .tab-item {
+    justify-content: flex-start;
+    padding: 16px;
+  }
+}
+
+/* =========================
+   Buttons
+   ========================= */
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Primary */
+.btn-primary {
+  background: #0070F3;
+  color: #fff;
+  border: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:hover {
+  background: #0059c1;
+}
+
+/* Secondary */
+.btn-secondary {
+  background: #fff;
+  color: #0070F3;
+  border: 1px solid #0070F3;
+}
+
+.btn-secondary:hover {
+  background: #e6f0ff;
+}
+
+/* =========================
+   Tab Navigation
+   ========================= */
+
+/* 共通タブスタイル */
+.tab-nav {
+  display: flex;
+  background: #fff;
+  border-top: 1px solid #E0E0E0;
+  border-left: 1px solid #E0E0E0;
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 12px;
+  cursor: pointer;
+  color: #1A1A1A;
+  text-decoration: none;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.tab-item:hover {
+  background: #f8f8f8;
+}
+
+/* アクティブ状態 */
+.tab-active {
+  background: #0070F3;
+  color: #fff;
 }
