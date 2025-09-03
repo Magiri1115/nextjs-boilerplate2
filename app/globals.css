@@ -27,13 +27,22 @@ body {
   color: #1A1A1A;
   margin: 0;
   text-align: center;
+  overflow: hidden;
 }
-
+/* Next.js App Router のルート要素 */
+body > div {
+  height: 100%;
+}
+/* main を1画面に固定 */
+main {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 /* 共通レイアウト */
 main {
   padding: 20px;
 }
-
 /* 見出し */
 h1 {
   font-size: 2rem;
