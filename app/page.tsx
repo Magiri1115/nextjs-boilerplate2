@@ -22,6 +22,7 @@ const contentMap: Record<string, string> = {
 
 export default function Page() {
   const [active, setActive] = useState("Home");
+  const [open, setOpen] = useState(true);
 
   return (
     <main className="flex min-h-screen bg-gray-50 dark:bg-gray-800">
@@ -35,22 +36,39 @@ export default function Page() {
         </div>
       </div>
 
-      {/* PCナビ（右縦並び、中央寄せ） */}
-      <nav className="hidden lg:flex flex-col fixed top-1/2 right-0 -translate-y-1/2 bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-700 w-32 py-4 space-y-4 items-center">
-        {navItems.map((item) => (
-          <button
-            key={item.label}
-            onClick={() => setActive(item.label)}
-            className={`w-full text-center py-2 transition ${
-              active === item.label
-                ? "bg-blue-600 text-white font-semibold rounded-md"
-                : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
-            }`}
-          >
-            {item.label}
-          </button>
-        ))}
-      </nav>
+{/* PCナビ（右縦並び、中央寄せ、トグル付き） */}
+<div className="hidden lg:block fixed top-1/2 right-0 -translate-y-1/2">
+  <div
+    className={`relative w-32 bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-700 transform transition-transform duration-500 ${
+      open ? "translate-x-0" : "translate-x-full"
+    }`}
+  >
+    {/* トグルボタン：ナビ左端中央 */}
+    <button
+      onClick={() => setOpen(!open)}
+      className={`absolute left-[-24px] top-1/2 -translate-y-1/2 w-6 h-12 bg-blue-600 text-white flex items-center justify-center rounded-l shadow transition-transform duration-500`}
+    >
+      {open ? ">" : "<"}
+    </button>
+
+    {/* ナビボタン（高さをボタン6つ分に） */}
+    <nav className="flex flex-col py-4 space-y-4 items-center" style={{ height: "calc(6*3rem + 5*1rem)" }}>
+      {navItems.map((item) => (
+        <button
+          key={item.label}
+          onClick={() => setActive(item.label)}
+          className={`w-full text-center py-2 transition ${
+            active === item.label
+              ? "bg-blue-600 text-white font-semibold rounded-md"
+              : "text-gray-800 dark:text-gray-200 hover:text-blue-600"
+          }`}
+        >
+          {item.label}
+        </button>
+      ))}
+    </nav>
+  </div>
+</div>
 
       {/* Tabletナビ（上部横タブ） */}
       <nav className="hidden md:flex lg:hidden fixed top-0 left-0 w-full bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 justify-center space-x-6 py-3">
@@ -68,7 +86,7 @@ export default function Page() {
           </button>
         ))}
       </nav>
-
+      
       {/* Mobileナビ（下部ボトムナビ） */}
       <nav className="flex md:hidden fixed bottom-0 left-0 w-full bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 justify-around py-2">
         {navItems.map((item) => (
