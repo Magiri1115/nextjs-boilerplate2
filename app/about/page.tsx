@@ -1,14 +1,7 @@
-// import Card from "../components/Card";
-
-export default function About() {
+export default function AboutPage() {
   return (
-    <main>
-      <h1>Our About</h1>
-      <div style={{ display: "flex", gap: "16px" }}>
-        <Card title="About 1" text="Description of about 1" />
-        <Card title="About 2" text="Description of about 2" />
-        <Card title="About 3" text="Description of about 3" />
-      </div>
-    </main>
+    <div className="min-h-screen flex items-center justify-center">
+      <h1 className="text-3xl font-bold">About Page</h1>
+    </div>
   );
 }

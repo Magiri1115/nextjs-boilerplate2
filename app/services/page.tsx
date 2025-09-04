@@ -1,14 +1,8 @@
-// import Card from "../components/Card";
-
-export default function Services() {
+export default function ServicesPage() {
   return (
-    <main>
-      <h1>Our Services</h1>
-      <div style={{ display: "flex", gap: "16px" }}>
-        <Card title="Service 1" text="Description of service 1" />
-        <Card title="Service 2" text="Description of service 2" />
-        <Card title="Service 3" text="Description of service 3" />
-      </div>
-    </main>
+    <div className="min-h-screen flex items-center justify-center">
+      <h1 className="text-3xl font-bold">Services Page</h1>
+    </div>
   );
 }
+

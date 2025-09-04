@@ -1,14 +1,7 @@
-// import Card from "../components/Card";
-
-export default function Blog() {
+export default function BlogPage() {
   return (
-    <main>
-      <h1>Our Blog</h1>
-      <div style={{ display: "flex", gap: "16px" }}>
-        <Card title="Blog 1" text="Description of blog 1" />
-        <Card title="Blog 2" text="Description of blog 2" />
-        <Card title="Blog 3" text="Description of blog 3" />
-      </div>
-    </main>
+    <div className="min-h-screen flex items-center justify-center">
+      <h1 className="text-3xl font-bold">Blog Page</h1>
+    </div>
   );
 }

@@ -1,14 +1,7 @@
-// import Card from "../components/Card";
-
-export default function Portfolio() {
+export default function PortfolioPage() {
   return (
-    <main>
-      <h1>Our Services</h1>
-      <div style={{ display: "flex", gap: "16px" }}>
-        <Card title="Portfolio 1" text="Description of portfolio 1" />
-        <Card title="Portfolio 2" text="Description of portfolio 2" />
-        <Card title="Portfolio 3" text="Description of portfolio 3" />
-      </div>
-    </main>
+    <div className="min-h-screen flex items-center justify-center">
+      <h1 className="text-3xl font-bold">Portfolio Page</h1>
+    </div>
   );
 }
