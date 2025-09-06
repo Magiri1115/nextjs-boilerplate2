@@ -21,8 +21,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const [transitioning, setTransitioning] = useState(false);
   const timeouts = useRef<number[]>([]);
 
-  const fadeDuration = 600; // フェード時間(ms)
-  const whiteHold = 300;   // 真っ白をキープする時間(ms)
+  const fadeDuration = 600; // フェード時間
+  const whiteHold = 300;   // 白保持時間
 
   useEffect(() => {
     // 初回ロード時：白 → フェードイン
@@ -43,11 +43,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     if (href === pathname || transitioning) return;
     setTransitioning(true);
 
-    // フェードアウト（白を出す）
     document.body.classList.remove("fade-in");
     document.body.classList.add("fade-out");
 
-    // フェードアウト完了 → ページ遷移 → 白を維持 → フェードイン
     const t1 = window.setTimeout(() => {
       router.push(href);
 
@@ -66,17 +64,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ja">
       <body>
-        {/* 背景は globals.css の body::before で固定 */}
-        {/* 透明レイヤー（黒50%）を上にかける */}
-        <div className="absolute inset-0 bg-black/50 pointer-events-none" />
-
         <main className="relative flex min-h-screen text-white">
-          {/* ページ内容（フェード対象） */}
+          {/* コンテンツ（フェード対象） */}
           <div className="fade-wrapper flex-1 flex items-center justify-center">
             {children}
           </div>
 
-          {/* PCナビ（右側タブ・フェード非対象） */}
+          {/* PCナビ */}
           <div className="hidden lg:block fixed top-1/2 right-0 -translate-y-1/2 z-[10000]">
             <div
               className={`relative w-32 bg-white/90 dark:bg-gray-900/90 border-l border-gray-200 dark:border-gray-700 transform transition-transform duration-500 ${
@@ -92,11 +86,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 {open ? ">" : "<"}
               </button>
 
-              <nav
-                className={`flex flex-col py-4 space-y-4 items-center ${
-                  transitioning ? "pointer-events-none opacity-60" : ""
-                }`}
-              >
+              <nav className="flex flex-col py-4 space-y-4 items-center">
                 {navItems.map((item) => (
                   <button
                     key={item.label}
@@ -112,9 +102,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
           {/* Tabletナビ */}
           <nav
-            className={`hidden md:flex lg:hidden fixed top-0 left-0 w-full bg-white/90 dark:bg-gray-900/90 border-b border-gray-200 dark:border-gray-700 justify-center space-x-6 py-3 ${
-              transitioning ? "pointer-events-none opacity-60" : "pointer-events-auto"
-            }`}
+            className={`hidden md:flex lg:hidden fixed top-0 left-0 w-full bg-white/90 dark:bg-gray-900/90 border-b border-gray-200 dark:border-gray-700 justify-center space-x-6 py-3 z-[10000]`}
           >
             {navItems.map((item) => (
               <button
@@ -129,9 +117,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
           {/* Mobileナビ */}
           <nav
-            className={`flex md:hidden fixed bottom-0 left-0 w-full bg-white/90 dark:bg-gray-900/90 border-t border-gray-200 dark:border-gray-700 justify-around py-2 ${
-              transitioning ? "pointer-events-none opacity-60" : "pointer-events-auto"
-            }`}
+            className={`flex md:hidden fixed bottom-0 left-0 w-full bg-white/90 dark:bg-gray-900/90 border-t border-gray-200 dark:border-gray-700 justify-around py-2 z-[10000]`}
           >
             {navItems.map((item) => (
               <button

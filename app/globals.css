@@ -5,13 +5,6 @@
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -23,18 +16,20 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: 'Roboto', sans-serif;
-  margin: 0;              /* 余白なし */
+  margin: 0;
   padding: 0;
-  height: 100vh;          /* 画面全体 */
+  height: 100vh;
   width: 100vw;
   overflow: hidden;
   position: relative;
 }
+
 main {
-  padding: 0px; 
+  padding: 0px;
 }
+
 /* =========================
-   背景画像（yoake.jpg）
+   背景画像（yoake.jpg：常に表示）
    ========================= */
 body::before {
   content: "";
@@ -42,12 +37,13 @@ body::before {
   top: 0; left: 0;
   width: 100%; height: 100%;
   background: url("/yoake.jpg") center center / cover no-repeat;
-  opacity: 0.5;          /* 透明度50% */
-  z-index: -1;           /* 背景に置く */
+  opacity: 0.5;
+  z-index: -1; /* 常に最背面 */
+  pointer-events: none;
 }
 
 /* =========================
-   フェードオーバーレイ（コンテンツ部分だけ）
+   コンテンツ用フェードオーバーレイ
    ========================= */
 .fade-wrapper {
   position: relative;
@@ -55,31 +51,26 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1; /* 背景より前、ナビより後 */
+  z-index: 1; /* 背景より前、ナビより後ろにしない */
 }
 
 .fade-wrapper::after {
   content: "";
   position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  inset: 0;
   background: #fff;
   opacity: 0;
-  pointer-events: none;
+  pointer-events: none; /* ナビクリックを妨げない */
   transition: opacity 0.6s ease;
-  z-index: 2;
+  z-index: 5; /* コンテンツの上、ナビ (10000) より下 */
 }
 
 /* フェードアウト（白を出す） */
 body.fade-out .fade-wrapper::after {
   opacity: 1;
 }
-/* フェードアウト（白を出す） */
-body.fade-out::after {
-  opacity: 1;
-}
 
 /* フェードイン（白を消す） */
-body.fade-in::after {
+body.fade-in .fade-wrapper::after {
   opacity: 0;
 }
