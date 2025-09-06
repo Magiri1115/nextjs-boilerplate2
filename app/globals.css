@@ -23,162 +23,63 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: 'Roboto', sans-serif;
-  background: #FFFFFF;
-  color: #1A1A1A;
-  margin: 0;
-  text-align: center;
+  margin: 0;              /* 余白なし */
+  padding: 0;
+  height: 100vh;          /* 画面全体 */
+  width: 100vw;
   overflow: hidden;
+  position: relative;
 }
-/* Next.js App Router のルート要素 */
-body > div {
-  height: 100%;
-}
-/* main を1画面に固定 */
 main {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+  padding: 0px; 
 }
-/* 共通レイアウト */
-main {
-  padding: 20px;
-}
-/* 見出し */
-h1 {
-  font-size: 2rem;
-  color: #333;
-}
-
-/* ==============================
-   レスポンシブ対応
-   ============================== */
-
-/* スマホ (～599px) */
-@media (max-width: 599px) {
-  h1 {
-    font-size: 1.5rem;
-    color: teal;
-  }
-  main {
-    background: #f0f9ff;
-  }
-  .tab-nav {
-    flex-direction: row;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-  }
-}
-
-/* タブレット (600px～1023px) */
-@media (min-width: 600px) and (max-width: 1023px) {
-  h1 {
-    font-size: 2rem;
-    color: darkorange;
-  }
-  main {
-    background: #fff7e6;
-  }
-  .tab-nav {
-    flex-direction: row;
-    border-bottom: 1px solid #E0E0E0;
-  }
-}
-
-/* PC (1024px～) */
-@media (min-width: 1024px) {
-  h1 {
-    font-size: 3rem;
-    color: darkgreen;
-  }
-  main {
-    background: #f9fff0;
-  }
-  .tab-nav {
-    flex-direction: column;
-    width: 240px;
-    border-top: none;
-    border-left: none;
-    border-right: 1px solid #E0E0E0;
-    height: 100vh;
-    position: fixed;
-    right: 0;
-    top: 0;
-  }
-  .tab-item {
-    justify-content: flex-start;
-    padding: 16px;
-  }
+/* =========================
+   背景画像（yoake.jpg）
+   ========================= */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: url("/yoake.jpg") center center / cover no-repeat;
+  opacity: 0.5;          /* 透明度50% */
+  z-index: -1;           /* 背景に置く */
 }
 
 /* =========================
-   Buttons
+   フェードオーバーレイ（コンテンツ部分だけ）
    ========================= */
-.btn {
-  display: inline-block;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-/* Primary */
-.btn-primary {
-  background: #0070F3;
-  color: #fff;
-  border: none;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.btn-primary:hover {
-  background: #0059c1;
-}
-
-/* Secondary */
-.btn-secondary {
-  background: #fff;
-  color: #0070F3;
-  border: 1px solid #0070F3;
-}
-
-.btn-secondary:hover {
-  background: #e6f0ff;
-}
-
-/* =========================
-   Tab Navigation
-   ========================= */
-
-/* 共通タブスタイル */
-.tab-nav {
-  display: flex;
-  background: #fff;
-  border-top: 1px solid #E0E0E0;
-  border-left: 1px solid #E0E0E0;
-}
-
-.tab-item {
+.fade-wrapper {
+  position: relative;
   flex: 1;
-  text-align: center;
-  padding: 12px;
-  cursor: pointer;
-  color: #1A1A1A;
-  text-decoration: none;
-  font-size: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  z-index: 1; /* 背景より前、ナビより後 */
 }
 
-.tab-item:hover {
-  background: #f8f8f8;
+.fade-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+  z-index: 2;
 }
 
-/* アクティブ状態 */
-.tab-active {
-  background: #0070F3;
-  color: #fff;
+/* フェードアウト（白を出す） */
+body.fade-out .fade-wrapper::after {
+  opacity: 1;
+}
+/* フェードアウト（白を出す） */
+body.fade-out::after {
+  opacity: 1;
+}
+
+/* フェードイン（白を消す） */
+body.fade-in::after {
+  opacity: 0;
 }

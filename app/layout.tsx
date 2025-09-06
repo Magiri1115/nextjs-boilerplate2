@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
+import React, { useEffect, useRef, useState } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import "./globals.css";
 
 const navItems = [
@@ -14,84 +14,137 @@ const navItems = [
 ];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
+  const pathname = usePathname();
+
   const [open, setOpen] = useState(true);
+  const [transitioning, setTransitioning] = useState(false);
+  const timeouts = useRef<number[]>([]);
+
+  const fadeDuration = 600; // フェード時間(ms)
+  const whiteHold = 300;   // 真っ白をキープする時間(ms)
+
+  useEffect(() => {
+    // 初回ロード時：白 → フェードイン
+    document.body.classList.add("fade-out");
+    const t = window.setTimeout(() => {
+      document.body.classList.remove("fade-out");
+      document.body.classList.add("fade-in");
+    }, fadeDuration + whiteHold);
+    timeouts.current.push(t);
+
+    return () => {
+      timeouts.current.forEach((id) => clearTimeout(id));
+      timeouts.current = [];
+    };
+  }, []);
+
+  const handleNav = (href: string) => {
+    if (href === pathname || transitioning) return;
+    setTransitioning(true);
+
+    // フェードアウト（白を出す）
+    document.body.classList.remove("fade-in");
+    document.body.classList.add("fade-out");
+
+    // フェードアウト完了 → ページ遷移 → 白を維持 → フェードイン
+    const t1 = window.setTimeout(() => {
+      router.push(href);
+
+      const t2 = window.setTimeout(() => {
+        document.body.classList.remove("fade-out");
+        document.body.classList.add("fade-in");
+        setTransitioning(false);
+      }, whiteHold);
+
+      timeouts.current.push(t2);
+    }, fadeDuration);
+
+    timeouts.current.push(t1);
+  };
 
   return (
     <html lang="ja">
       <body>
-        {/* 背景画像を全ページに共通適用 */}
-        <div
-          className="min-h-screen bg-cover bg-center relative"
-          style={{ backgroundImage: "url('/hero.jpg')" }} // public/hero.jpg を置く
-        >
-          {/* 背景に薄いオーバーレイを入れる場合 */}
-          <div className="absolute inset-0 bg-black/40" />
+        {/* 背景は globals.css の body::before で固定 */}
+        {/* 透明レイヤー（黒50%）を上にかける */}
+        <div className="absolute inset-0 bg-black/50 pointer-events-none" />
 
-          <main className="relative flex min-h-screen text-white">
-            {/* ページごとの中身 */}
-            <div className="flex-1 flex items-center justify-center">
-              {children}
-            </div>
+        <main className="relative flex min-h-screen text-white">
+          {/* ページ内容（フェード対象） */}
+          <div className="fade-wrapper flex-1 flex items-center justify-center">
+            {children}
+          </div>
 
-            {/* ✅ PCナビ（右縦並び＋トグル付き） */}
-            <div className="hidden lg:block fixed top-1/2 right-0 -translate-y-1/2">
-              <div
-                className={`relative w-32 bg-white/90 dark:bg-gray-900/90 border-l border-gray-200 dark:border-gray-700 transform transition-transform duration-500 ${
-                  open ? "translate-x-0" : "translate-x-full"
+          {/* PCナビ（右側タブ・フェード非対象） */}
+          <div className="hidden lg:block fixed top-1/2 right-0 -translate-y-1/2 z-[10000]">
+            <div
+              className={`relative w-32 bg-white/90 dark:bg-gray-900/90 border-l border-gray-200 dark:border-gray-700 transform transition-transform duration-500 ${
+                open ? "translate-x-0" : "translate-x-full"
+              }`}
+            >
+              <button
+                onClick={() => !transitioning && setOpen((s) => !s)}
+                disabled={transitioning}
+                aria-label="Toggle navigation"
+                className="absolute left-[-24px] top-1/2 -translate-y-1/2 w-6 h-12 bg-blue-600 text-white flex items-center justify-center rounded-l shadow cursor-pointer disabled:opacity-50"
+              >
+                {open ? ">" : "<"}
+              </button>
+
+              <nav
+                className={`flex flex-col py-4 space-y-4 items-center ${
+                  transitioning ? "pointer-events-none opacity-60" : ""
                 }`}
               >
-                {/* トグルボタン */}
-                <button
-                  onClick={() => setOpen(!open)}
-                  className="absolute left-[-24px] top-1/2 -translate-y-1/2 w-6 h-12 bg-blue-600 text-white flex items-center justify-center rounded-l shadow"
-                >
-                  {open ? ">" : "<"}
-                </button>
-
-                {/* ナビボタン */}
-                <nav className="flex flex-col py-4 space-y-4 items-center">
-                  {navItems.map((item) => (
-                    <Link
-                      key={item.label}
-                      href={item.href}
-                      className="w-full text-center py-2 text-gray-800 dark:text-gray-200 hover:text-blue-600"
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
-                </nav>
-              </div>
+                {navItems.map((item) => (
+                  <button
+                    key={item.label}
+                    onClick={() => handleNav(item.href)}
+                    className="w-full text-center py-2 text-gray-800 dark:text-gray-200 hover:text-blue-600 cursor-pointer"
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </nav>
             </div>
+          </div>
 
-            {/* ✅ Tabletナビ（上部横タブ） */}
-            <nav className="hidden md:flex lg:hidden fixed top-0 left-0 w-full bg-white/90 dark:bg-gray-900/90 border-b border-gray-200 dark:border-gray-700 justify-center space-x-6 py-3">
-              {navItems.map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className="px-3 py-2 text-gray-800 dark:text-gray-200 hover:text-blue-600"
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
+          {/* Tabletナビ */}
+          <nav
+            className={`hidden md:flex lg:hidden fixed top-0 left-0 w-full bg-white/90 dark:bg-gray-900/90 border-b border-gray-200 dark:border-gray-700 justify-center space-x-6 py-3 ${
+              transitioning ? "pointer-events-none opacity-60" : "pointer-events-auto"
+            }`}
+          >
+            {navItems.map((item) => (
+              <button
+                key={item.label}
+                onClick={() => handleNav(item.href)}
+                className="px-3 py-2 text-gray-800 dark:text-gray-200 hover:text-blue-600 cursor-pointer"
+              >
+                {item.label}
+              </button>
+            ))}
+          </nav>
 
-            {/* ✅ Mobileナビ（下部ボトムナビ） */}
-            <nav className="flex md:hidden fixed bottom-0 left-0 w-full bg-white/90 dark:bg-gray-900/90 border-t border-gray-200 dark:border-gray-700 justify-around py-2">
-              {navItems.map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className="flex flex-col items-center text-xs text-gray-700 dark:text-gray-200 hover:text-blue-600"
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav>
-          </main>
-        </div>
+          {/* Mobileナビ */}
+          <nav
+            className={`flex md:hidden fixed bottom-0 left-0 w-full bg-white/90 dark:bg-gray-900/90 border-t border-gray-200 dark:border-gray-700 justify-around py-2 ${
+              transitioning ? "pointer-events-none opacity-60" : "pointer-events-auto"
+            }`}
+          >
+            {navItems.map((item) => (
+              <button
+                key={item.label}
+                onClick={() => handleNav(item.href)}
+                className="flex flex-col items-center text-xs text-gray-700 dark:text-gray-200 hover:text-blue-600 cursor-pointer"
+              >
+                {item.label}
+              </button>
+            ))}
+          </nav>
+        </main>
       </body>
     </html>
   );
 }
-
