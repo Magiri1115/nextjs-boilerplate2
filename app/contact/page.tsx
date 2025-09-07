@@ -1,49 +1,13 @@
-// app/contact/page.tsx
 export default function ContactPage() {
-  const contacts = [
-    {
-      label: "X (Twitter)",
-      href: "https://x.com/Magiri2001",
-      icon: "/icons/x.svg",
-    },
-    {
-      label: "Email",
-      href: "mailto:busmagiri6@example.com",
-      icon: "/icons/gmail.svg",
-    },
-    {
-      label: "GitHub",
-      href: "https://github.com/Magiri1115",
-      icon: "/icons/github.svg",
-    },
-    {
-      label: "Discord",
-      icon: "/icons/discord.svg",
-    },
-  ];
-
   return (
-    <div className="text-center space-y-6">
-      <h1 className="text-3xl font-bold mb-6">Contact</h1>
-      <ul className="space-y-4">
-        {contacts.map((item) => (
-          <li key={item.label}>
-            <a
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center space-x-3 text-xl text-blue-500 hover:underline"
-            >
-              <img
-                src={item.icon}
-                alt={item.label}
-                className="w-7 h-7 inline-block"
-              />
-              <span>{item.label}</span>
-            </a>
-          </li>
-        ))}
-      </ul>
+    <div className="min-h-screen flex flex-col items-center justify-center py-16 px-6 space-y-6">
+      {/* Icon + Email */}
+      {/* Instruction */}
+      <p className="text-white leading-relaxed">宛先・件名・用件を書いて下のメールアドレスに送信してください。</p>
+      <div className="flex items-center space-x-4">
+        <img src="/icons/gmail.svg" alt="Gmail" className="w-12 h-12" />
+        <p className="text-lg font-semibold text-white">busmagiri6@gmail.com</p>
+      </div>
     </div>
   );
 }
