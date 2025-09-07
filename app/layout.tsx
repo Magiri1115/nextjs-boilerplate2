@@ -18,14 +18,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const pathname = usePathname();
 
   const [open, setOpen] = useState(true);
+  const [tabletOpen, setTabletOpen] = useState(true);
   const [transitioning, setTransitioning] = useState(false);
   const timeouts = useRef<number[]>([]);
 
-  const fadeDuration = 600; // フェード時間
-  const whiteHold = 300;   // 白保持時間
+  const fadeDuration = 600;
+  const whiteHold = 300;
 
   useEffect(() => {
-    // 初回ロード時：白 → フェードイン
     document.body.classList.add("fade-out");
     const t = window.setTimeout(() => {
       document.body.classList.remove("fade-out");
@@ -65,7 +65,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ja">
       <body>
         <main className="relative flex min-h-screen text-white">
-          {/* コンテンツ（フェード対象） */}
+          {/* コンテンツ */}
           <div className="fade-wrapper flex-1 flex items-center justify-center">
             {children}
           </div>
@@ -101,19 +101,33 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
 
           {/* Tabletナビ */}
-          <nav
-            className={`hidden md:flex lg:hidden fixed top-0 left-0 w-full bg-white/90 dark:bg-gray-900/90 border-b border-gray-200 dark:border-gray-700 justify-center space-x-6 py-3 z-[10000]`}
+          <div
+            className={`hidden md:block lg:hidden fixed left-0 w-full bg-white/90 dark:bg-gray-900/90 border-b border-gray-200 dark:border-gray-700 transform transition-transform duration-500 z-[10000] ${
+              tabletOpen ? "translate-y-0" : "-translate-y-full"
+            }`}
           >
-            {navItems.map((item) => (
-              <button
-                key={item.label}
-                onClick={() => handleNav(item.href)}
-                className="px-3 py-2 text-gray-800 dark:text-gray-200 hover:text-blue-600 cursor-pointer"
-              >
-                {item.label}
-              </button>
-            ))}
-          </nav>
+            {/* トグルボタン */}
+            <button
+              onClick={() => !transitioning && setTabletOpen((s) => !s)}
+              disabled={transitioning}
+              aria-label="Toggle tablet navigation"
+              className="absolute left-1/2 -translate-x-1/2 bottom-[-24px] w-12 h-6 bg-blue-600 text-white flex items-center justify-center rounded-b shadow cursor-pointer disabled:opacity-50"
+            >
+              {tabletOpen ? "⌃" : "⌄"}
+            </button>
+
+            <nav className="flex justify-center space-x-6 py-3">
+              {navItems.map((item) => (
+                <button
+                  key={item.label}
+                  onClick={() => handleNav(item.href)}
+                  className="px-3 py-2 text-gray-800 dark:text-gray-200 hover:text-blue-600 cursor-pointer"
+                >
+                  {item.label}
+                </button>
+              ))}
+            </nav>
+          </div>
 
           {/* Mobileナビ */}
           <nav
