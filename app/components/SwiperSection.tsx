@@ -30,21 +30,22 @@ export default function SwiperSection({ items }: { items: Item[] }) {
           </SwiperSlide>
         ))}
       </Swiper>
-        {/* ↑ ボタン */}
-        <button
+
+      {/* ↑ ボタン */}
+      <button
         onClick={() => swiperRef.current?.slidePrev()}
         className="absolute left-1/2 top-16 transform -translate-x-1/2 z-50 w-12 h-12 rounded-full bg-white/30 flex items-center justify-center text-white shadow-lg cursor-pointer hover:bg-white/50 transition-colors"
-        >
+      >
         ↑
-        </button>
+      </button>
 
-        {/* ↓ ボタン */}
-        <button
+      {/* ↓ ボタン */}
+      <button
         onClick={() => swiperRef.current?.slideNext()}
         className="absolute left-1/2 bottom-16 transform -translate-x-1/2 z-50 w-12 h-12 rounded-full bg-white/30 flex items-center justify-center text-white shadow-lg cursor-pointer hover:bg-white/50 transition-colors"
-        >
+      >
         ↓
-        </button>
+      </button>
     </div>
   );
 }
