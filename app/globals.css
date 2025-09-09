@@ -74,3 +74,26 @@ body.fade-out .fade-wrapper::after {
 body.fade-in .fade-wrapper::after {
   opacity: 0;
 }
+
+/* =========================
+   Tailwind用カスタムクラス
+   ========================= */
+.perspective {
+  perspective: 1000px;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+.transform-style-preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.animate-spin-slow {
+  animation: spin 8s linear infinite;
+}
