@@ -1,8 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import Image from "next/image";
 
-type PortfolioItem = {
+type Props = {
   icon: string;
   backIcon: string;
   title: string;
@@ -10,41 +9,54 @@ type PortfolioItem = {
   challenge: string;
 };
 
-export default function PortfolioCard({ item }: { item: PortfolioItem }) {
+export default function PortfolioCard({ icon, backIcon, title, description, challenge }: Props) {
   const [flipped, setFlipped] = useState(false);
+
+  // 画面幅で挙動を変える
+  const isPC = typeof window !== "undefined" && window.innerWidth >= 1024;
+
+  const handleClick = () => {
+    if (isPC) {
+      setFlipped((f) => !f);
+    }
+  };
+
+  const handleTouchStart = () => {
+    if (!isPC) setFlipped(true);
+  };
+
+  const handleTouchEnd = () => {
+    if (!isPC) setFlipped(false);
+  };
 
   return (
     <div
-      className="w-72 h-96 perspective cursor-pointer"
-      onClick={() => setFlipped((prev) => !prev)}
+      onClick={handleClick}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      className="w-64 md:w-80 h-96 perspective cursor-pointer"
     >
       <div
         className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${
           flipped ? "rotate-y-180" : ""
         }`}
       >
-        {/* 表 */}
-        <div className="absolute inset-0 backface-hidden flex flex-col items-center justify-center p-4 rounded-xl shadow-lg bg-white/90 dark:bg-gray-900/90">
-          <div className="w-24 h-24 mb-6 animate-spin-slow">
-            <Image src={item.icon} alt={item.title} width={96} height={96} />
-          </div>
-          <h2 className="text-xl font-bold mb-2 text-gray-900 dark:text-gray-100">
-            {item.title}
-          </h2>
-          <p className="text-sm text-gray-700 dark:text-gray-300">
-            {item.description}
+        {/* Front */}
+        <div className="absolute w-full h-full backface-hidden bg-transparent text-white rounded-2xl p-6 shadow-lg flex flex-col items-center justify-center">
+          <img src={icon} alt={title} className="w-16 h-16 mb-4" />
+          <h3 className="mt-4 text-xl font-bold bg-black/30 px-2 py-1 rounded">
+            {title}
+          </h3>
+          <p className="mt-2 text-sm bg-black/20 px-2 py-1 rounded">
+            {description}
           </p>
         </div>
 
-        {/* 裏 */}
-        <div className="absolute inset-0 backface-hidden rotate-y-180 flex flex-col items-center justify-center p-4 rounded-xl shadow-lg bg-white/90 dark:bg-gray-900/90">
-          <div className="w-24 h-24 mb-6 animate-spin-slow">
-            <Image src={item.backIcon} alt={item.title + " 裏"} width={96} height={96} />
-          </div>
-          <h2 className="text-lg font-semibold mb-2 text-gray-900 dark:text-gray-100">
-            苦労したこと
-          </h2>
-          <p className="text-sm text-gray-700 dark:text-gray-300">{item.challenge}</p>
+        {/* Back */}
+        <div className="absolute w-full h-full backface-hidden rotate-y-180 bg-transparent text-white rounded-2xl p-6 shadow-lg flex flex-col items-center justify-center">
+          <img src={backIcon} alt={`${title} back`} className="w-16 h-16 mb-4" />
+          <h3 className="mt-4 text-lg font-bold">大変だったこと</h3>
+          <p className="mt-2 text-sm">{challenge}</p>
         </div>
       </div>
     </div>
