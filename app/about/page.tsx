@@ -1,9 +1,9 @@
 import SwiperSection from "../components/SwiperSection";
 
 const aboutData = [
-  { icon: "/icons/about1.svg", title: "挑戦心", description: "新しい技術やアイデアに対して学び続けます。" },
-  { icon: "/icons/about2.svg", title: "リーダーシップ", description: "ともに歩み、導ける存在を目指しています。" },
-  { icon: "/icons/about3.svg", title: "人とのつながり", description: "ご縁を大切にし信頼関係を築くことに全力を尽くします。" },
+  { icon: "/icons/challenge.png", title: "挑戦心", description: "新しい技術やアイデアに対して学び続けます。" },
+  { icon: "/icons/connection.png", title: "リーダーシップ", description: "ともに歩み、導ける存在を目指しています。" },
+  { icon: "/icons/reader.png", title: "人とのつながり", description: "ご縁を大切にし信頼関係を築くことに全力を尽くします。" },
 ];
 
 export default function AboutPage() {

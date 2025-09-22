@@ -3,6 +3,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import "./globals.css";
+import Snowfall from "@/app/components/Snowfall";
+
 
 const navItems = [
   { label: "Home", href: "/" },
@@ -65,6 +67,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ja">
       <body>
         <main className="relative flex min-h-screen text-white">
+          {/* 粉雪アニメーション */}
+          <Snowfall />
+
           {/* コンテンツ */}
           <div className="fade-wrapper flex-1 flex items-center justify-center">
             {children}

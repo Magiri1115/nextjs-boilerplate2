@@ -4,7 +4,7 @@ import PortfolioCard from "../components/PortfolioCard";
 const portfolioData = [
   {
     icon: "/icons/Godot_icon.svg",
-    backIcon: "/icons/portfolio4.svg",
+    backIcon: "/icons/portfolio4.png",
     title: "大学生活をテーマとしたシリアスゲーム開発",
     description:
       "大学生活で直面する課題を解決するシリアスゲームを開発しました。技術スタック: Godot Engine, GDScript",
@@ -30,7 +30,7 @@ const portfolioData = [
 
 export default function PortfolioPage() {
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen bg-transparent">
       {/* スマホ＋タブレット専用 */}
       <SwiperSection items={portfolioData} />
 
