@@ -68,8 +68,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <main className="relative flex min-h-screen text-white">
           {/* 粉雪アニメーション */}
-          <Snowfall />
-
+          <div className="fixed top-0 left-0 w-screen h-screen pointer-events-none z-0">
+            <Snowfall />
+          </div>
           {/* コンテンツ */}
           <div className="fade-wrapper flex-1 flex items-center justify-center">
             {children}
