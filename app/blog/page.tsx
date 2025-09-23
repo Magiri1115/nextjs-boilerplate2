@@ -17,6 +17,11 @@ export default function BlogPage() {
       href: "http://magiri.jp",
       comment: "個人ポートフォリオ（このサイト）",
     },
+    {
+      title: "大学を使い倒すゲーム",
+      href: "https://www.tuis.ac.jp/topics/20241209articleinterviewofkawanoseminar/",
+      comment: "堀潤 Live Junctionでの紹介",
+    },
   ];
 
   return (
