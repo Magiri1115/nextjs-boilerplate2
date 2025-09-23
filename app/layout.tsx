@@ -8,7 +8,6 @@ import Snowfall from "@/app/components/Snowfall";
 
 const navItems = [
   { label: "Home", href: "/" },
-  { label: "Services", href: "/services" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "About", href: "/about" },
   { label: "Blog", href: "/blog" },
