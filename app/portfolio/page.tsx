@@ -31,11 +31,13 @@ const portfolioData = [
 export default function PortfolioPage() {
   return (
     <div className="min-h-screen bg-transparent">
-      {/* スマホ＋タブレット専用 */}
+    {/* スマホ＋タブレット専用（1072px以下） */}
+    <div className="block max-[1072px]:block min-[1073px]:hidden">
       <SwiperSection items={portfolioData} />
+    </div>
 
-      {/* PC＋タブレット（md以上） */}
-      <div className="hidden sm:flex md:flex min-h-screen items-center justify-center flex-wrap gap-6 p-8">
+      {/* PC専用（1073px以上） */}
+      <div className="hidden min-[1073px]:flex min-h-screen items-center justify-center flex-wrap gap-6 p-8">
         {portfolioData.map((p, i) => (
           <PortfolioCard
             key={i}

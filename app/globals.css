@@ -128,3 +128,21 @@ body.fade-in .fade-wrapper::after {
 .flip-back {
   transform: rotateY(180deg);
 }
+/* ===== Scrollbar Custom (for AboutPage career list) ===== */
+.scroll-container::-webkit-scrollbar {
+  width: 12px;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  background-color: #3b82f6; /* 青系 */
+  border-radius: 6px;
+}
+
+.scroll-container::-webkit-scrollbar-track {
+  background-color: #1f2937; /* グレー */
+}
+
+.scroll-container {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #3b82f6 #1f2937;
+}

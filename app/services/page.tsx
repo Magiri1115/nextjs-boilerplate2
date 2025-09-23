@@ -9,13 +9,18 @@ const servicesData = [
 export default function ServicesPage() {
   return (
     <div className="min-h-screen">
-      {/* スマホ＋タブレット専用 */}
-      <SwiperSection items={servicesData} />
+      {/* スマホ＋タブレット専用（1072px以下） */}
+      <div className="block min-[1073px]:hidden">
+        <SwiperSection items={servicesData} />
+      </div>
 
-      {/* PC＋タブレット（sm以上） */}
-      <div className="hidden sm:flex md:flex min-h-screen items-center justify-center space-x-6 flex-wrap justify-center">
+      {/* PC専用（1073px以上） */}
+      <div className="hidden min-[1073px]:flex min-h-screen items-center justify-center space-x-6 flex-wrap">
         {servicesData.map((s, i) => (
-          <div key={i} className="w-64 md:w-80 bg-transparent text-white rounded-2xl p-6 text-center shadow-lg flex flex-col items-center mb-6">
+          <div
+            key={i}
+            className="w-64 md:w-80 bg-transparent text-white rounded-2xl p-6 text-center shadow-lg flex flex-col items-center mb-6"
+          >
             <img src={s.icon} alt={s.title} className="w-16 h-16 mb-4" />
             <h3 className="mt-4 text-xl font-bold">{s.title}</h3>
             <p className="mt-2 text-sm">{s.description}</p>

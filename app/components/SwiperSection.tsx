@@ -13,7 +13,7 @@ export default function SwiperSection({ items }: { items: Item[] }) {
   const swiperRef = useRef<any>(null);
 
   return (
-    <div className="block md:hidden h-screen w-full relative">
+    <div className="h-screen w-full relative">
       <Swiper
         direction="vertical"
         slidesPerView={1}
@@ -30,6 +30,7 @@ export default function SwiperSection({ items }: { items: Item[] }) {
           </SwiperSlide>
         ))}
       </Swiper>
+
 
       {/* ↑ ボタン */}
       <button
