@@ -26,7 +26,7 @@ export default function ContactPage() {
             rel="noopener noreferrer"
             className="flex flex-col items-center space-y-2 hover:opacity-80 transition-opacity"
           >
-            <img src="/icons/github.svg" alt="GitHub" className="w-12 h-12" />
+            <img src="/icons/GitHub.svg" alt="GitHub" className="w-12 h-12" />
             <p className="text-lg font-semibold text-white">Magiri1115</p>
           </a>
         </div>
