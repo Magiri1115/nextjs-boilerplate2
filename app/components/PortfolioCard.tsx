@@ -9,7 +9,13 @@ type Props = {
   challenge: string;
 };
 
-export default function PortfolioCard({ icon, backIcon, title, description, challenge }: Props) {
+export default function PortfolioCard({
+  icon,
+  backIcon,
+  title,
+  description,
+  challenge,
+}: Props) {
   const [flipped, setFlipped] = useState(false);
 
   // 画面幅で挙動を変える
@@ -54,7 +60,12 @@ export default function PortfolioCard({ icon, backIcon, title, description, chal
 
         {/* Back */}
         <div className="absolute w-full h-full backface-hidden rotate-y-180 bg-transparent text-white rounded-2xl p-6 shadow-lg flex flex-col items-center justify-center">
-          <img src={backIcon} alt={`${title} back`} className="w-16 h-16 mb-4" />
+          {/* backIcon を 200% に拡大 */}
+          <img
+            src={backIcon}
+            alt={`${title} back`}
+            className="w-48 h-32 mb-4" // ← w-16 h-16 を w-48 h-32 に変更
+          />
           <h3 className="mt-4 text-lg font-bold">大変だったこと</h3>
           <p className="mt-2 text-sm">{challenge}</p>
         </div>
