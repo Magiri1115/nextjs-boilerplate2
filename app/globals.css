@@ -146,3 +146,8 @@ body.fade-in .fade-wrapper::after {
   scrollbar-width: thin; /* Firefox */
   scrollbar-color: #3b82f6 #1f2937;
 }
+
+/* global.css に追加 */
+.snow-layer {
+  z-index: -1 !important;
+}

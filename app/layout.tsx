@@ -67,7 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <main className="relative flex min-h-screen text-white">
           {/* 粉雪アニメーション */}
-          <div className="fixed top-0 left-0 w-screen h-screen pointer-events-none z-0">
+          <div className="fixed top-0 left-0 w-screen h-screen pointer-events-none z-[-1]">
             <Snowfall />
           </div>
           {/* コンテンツ */}
