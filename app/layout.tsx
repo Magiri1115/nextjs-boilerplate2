@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { useRouter, usePathname } from "next/navigation";
+import Particles, { initParticlesEngine } from "@tsparticles/react";
+import { loadSlim } from "@tsparticles/slim"; // 軽量プリセットでOK
 import "./globals.css";
-import Snowfall from "@/app/components/Snowfall";
-
 
 const navItems = [
   { label: "Home", href: "/" },
@@ -26,6 +26,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const fadeDuration = 600;
   const whiteHold = 300;
 
+  // ページフェード制御
   useEffect(() => {
     document.body.classList.add("fade-out");
     const t = window.setTimeout(() => {
@@ -40,6 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     };
   }, []);
 
+  // ページ遷移アニメーション
   const handleNav = (href: string) => {
     if (href === pathname || transitioning) return;
     setTransitioning(true);
@@ -62,14 +64,48 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     timeouts.current.push(t1);
   };
 
+const [init, setInit] = useState(false);
+
+useEffect(() => {
+  initParticlesEngine(async (engine) => {
+    await loadSlim(engine);
+  }).then(() => setInit(true));
+}, []);
+
+
   return (
     <html lang="ja">
       <body>
         <main className="relative flex min-h-screen text-white">
-          {/* 粉雪アニメーション */}
-          <div className="fixed top-0 left-0 w-screen h-screen pointer-events-none z-[-1]">
-            <Snowfall />
-          </div>
+          {/* Particles.js 背景 */}
+          {init && (
+            <Particles
+              id="tsparticles"
+              init={Particles}
+              className="fixed top-0 left-0 w-screen h-screen z-[-1]"
+              options={{
+                background: { color: { value: "#0a0a0a" } },
+                fpsLimit: 60,
+                particles: {
+                  number: { value: 120, density: { enable: true, area: 800 } },
+                  color: { value: "#ffffff" },
+                  shape: { type: "circle" },
+                  opacity: { value: 0.8 },
+                  size: { value: { min: 1, max: 4 }, random: true },
+                  move: {
+                    enable: true,
+                    direction: "bottom",
+                    speed: { min: 0.5, max: 2 },
+                    straight: false,
+                    outModes: { default: "out" },
+                  },
+                },
+                interactivity: { events: { onHover: { enable: false }, onClick: { enable: false } } },
+                detectRetina: true,
+              }}
+            />
+          )}
+
           {/* コンテンツ */}
           <div className="fade-wrapper flex-1 flex items-center justify-center">
             {children}
@@ -111,7 +147,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               tabletOpen ? "translate-y-0" : "-translate-y-full"
             }`}
           >
-            {/* トグルボタン */}
             <button
               onClick={() => !transitioning && setTabletOpen((s) => !s)}
               disabled={transitioning}
