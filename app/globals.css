@@ -60,3 +60,20 @@ body.fade-in .fade-wrapper::after {
   z-index: -1;
   background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
 }
+
+/* === 3D カード用 === */
+.perspective {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
