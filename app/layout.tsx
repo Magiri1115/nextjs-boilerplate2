@@ -89,7 +89,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 background: { color: { value: "#0a0a0a" } },
                 fpsLimit: 60,
                 particles: {
-                  number: { value: 120, density: { enable: true, area: 800 } },
+                  number: { value: 120, density: { enable: true, value_area: 800 } },
                   color: { value: "#ffffff" },
                   shape: { type: "circle" },
                   opacity: { value: 0.8 },
