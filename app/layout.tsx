@@ -93,7 +93,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     value: 120,
                     density: {
                       enable: true,
-                      width: 800, // ← value_areaの代わり
+                      width: 800,
                       height: 800,
                     },
                   },
@@ -101,7 +101,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   shape: { type: "circle" },
                   opacity: { value: 0.8 },
                   size: {
-                    value: { min: 1, max: 3 }, // ← randomをこの形式に置き換え
+                    value: { min: 1, max: 3 },
                   },
                   move: {
                     enable: true,
@@ -111,7 +111,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   },
                 },
                 interactivity: {
-                  events: { onHover: { enable: false }, onClick: { enable: false } },
+                  events: {
+                    onHover: { enable: true, mode: "repulse" },
+                    onClick: { enable: true, mode: "push" },
+                  },
+                  modes: {
+                    repulse: { distance: 100 },
+                    push: { quantity: 4 },
+                  },
                 },
                 detectRetina: true,
               }}
