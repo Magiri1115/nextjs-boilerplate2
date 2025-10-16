@@ -28,12 +28,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const fadeDuration = 600;
   const whiteHold = 300;
 
-  // ✅ Hydration安全ガード
+  // Hydration安全ガード
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  // ✅ ページフェード管理
+  // ページフェード管理
   useEffect(() => {
     document.body.classList.add("fade-out");
     const t = window.setTimeout(() => {
@@ -68,7 +68,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     timeouts.current.push(t1);
   };
 
-  // ✅ パーティクル初期化（SSR安全）
+  // パーティクル初期化（SSR安全）
   useEffect(() => {
     if (typeof window === "undefined") return;
     initParticlesEngine(async (engine) => {
@@ -89,16 +89,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 background: { color: { value: "#0a0a0a" } },
                 fpsLimit: 60,
                 particles: {
-                  number: { value: 120, density: { enable: true, value_area: 800 } },
+                  number: {
+                    value: 120,
+                    density: {
+                      enable: true,
+                      width: 800, // ← value_areaの代わり
+                      height: 800,
+                    },
+                  },
                   color: { value: "#ffffff" },
                   shape: { type: "circle" },
                   opacity: { value: 0.8 },
-                  size: { value: { min: 1, max: 4 }, random: true },
+                  size: {
+                    value: { min: 1, max: 3 }, // ← randomをこの形式に置き換え
+                  },
                   move: {
                     enable: true,
-                    direction: "bottom",
-                    speed: { min: 0.5, max: 2 },
-                    straight: false,
+                    speed: 1,
+                    direction: "none",
                     outModes: { default: "out" },
                   },
                 },
@@ -115,7 +123,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {children}
           </div>
 
-          {/* 🖥️ PCナビ */}
+          {/* PCナビ */}
           <div className="hidden lg:block fixed top-1/2 right-0 -translate-y-1/2 z-[10000]">
             <div
               className={`relative w-32 bg-white/90 dark:bg-gray-900/90 border-l border-gray-200 dark:border-gray-700 transform transition-transform duration-500 ${
@@ -145,7 +153,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </div>
           </div>
 
-          {/* 💻 Tabletナビ */}
+          {/* Tabletナビ */}
           <div
             className={`hidden md:block lg:hidden fixed left-0 w-full bg-white/90 dark:bg-gray-900/90 border-b border-gray-200 dark:border-gray-700 transform transition-transform duration-500 z-[10000] ${
               tabletOpen ? "translate-y-0" : "-translate-y-full"
@@ -173,7 +181,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </nav>
           </div>
 
-          {/* 📱 Mobileナビ（Hydration安全版＋右端修正） */}
+          {/* Mobileナビ（Hydration安全版＋右端修正） */}
           {isClient && (
             <nav
               className="
