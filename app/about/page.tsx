@@ -8,7 +8,7 @@ export default function AboutPage() {
     { year: "2024年10月", text: "東京ゲームショウ出展・取材" },
     { year: "2025年3月", text: "東京情報大学 総合情報学部 卒業" },
     { year: "2025年6月", text: "有限会社クリフト 入社 （フロントエンド開発・テストケース作成）" },
-    { year: "2025年9月～現在", text: "ポートフォリオ開発　技術スタック：React / Next.js " },
+    { year: "2025年9月～現在", text: "ポートフォリオ開発 技術スタック：React / Next.js TailwindCSS " },
   ];
 
   return (

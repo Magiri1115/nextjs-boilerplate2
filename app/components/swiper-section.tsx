@@ -1,3 +1,4 @@
+// 上下ボタンでスライドを切り替える全画面スクロール型セクションコンポーネント
 "use client";
 import React, { useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";

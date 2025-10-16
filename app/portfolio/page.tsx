@@ -1,5 +1,5 @@
-import SwiperSection from "../components/SwiperSection";
-import PortfolioCard from "../components/PortfolioCard";
+import SwiperSection from "../components/swiper-section";
+import PortfolioCard from "../components/portfolio-card";
 
 const portfolioData = [
   {
