@@ -14,13 +14,18 @@ export default function BlogPage() {
     },
     {
       title: "ポートフォリオ",
-      href: "http://magiri.jp",
+      href: "https://github.com/Magiri1115/nextjs-boilerplate2",
       comment: "個人ポートフォリオ（このサイト）",
     },
     {
       title: "大学を使い倒すゲーム",
       href: "https://www.tuis.ac.jp/topics/20241209articleinterviewofkawanoseminar/",
       comment: "堀潤 Live Junctionでの紹介",
+    },
+    {
+      title: "Narou-Search",
+      href: "https://github.com/Magiri1115/Narou-Search/tree/develop",
+      comment: "Juliaを使用したハイパフォーマンス検索サイト（構築中）。テキスト感情分析も実装予定。",
     },
   ];
 
