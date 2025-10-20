@@ -1,0 +1,71 @@
+.hobby-border {
+  width: 80%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  border: 2px solid #ffa85c;
+  border-radius: 1rem;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.03);
+  padding: 1rem;
+}
+
+/* 📸 画像を固定サイズ枠で管理 */
+.hobby-image-wrapper {
+  width: 100%;
+  max-width: 670px;
+  height: auto;
+  max-height: 380px;
+  aspect-ratio: 670 / 380;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* 画像が枠内で常に収まるように調整 */
+.hobby-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* タイトルとテキスト部分 */
+.hobby-sentence {
+  width: 100%;
+  text-align: center;
+  margin-top: 2rem; /* ← 画像との間にゆとりを追加 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hobby-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0.75rem;
+}
+
+.hobby-text {
+  font-size: 1rem;
+  opacity: 0.85;
+  max-width: 80%;
+}
+
+/* スマホ対応 */
+@media (max-width: 768px) {
+  .hobby-image-wrapper {
+    max-width: 90%;
+    max-height: 240px;
+  }
+
+  .hobby-title {
+    font-size: 1.2rem;
+  }
+
+  .hobby-text {
+    font-size: 0.9rem;
+  }
+}

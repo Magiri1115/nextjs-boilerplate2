@@ -11,7 +11,7 @@ const navItems = [
   { label: "Portfolio", href: "/portfolio" },
   { label: "About", href: "/about" },
   { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "/contact" },
+  { label: "Hobby", href: "/hobby" },
 ];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
