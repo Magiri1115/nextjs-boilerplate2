@@ -13,6 +13,6 @@ export const hobbies = [
   {
     image: "/images/mariokart.png",
     title: "マリオカート",
-    text: "オンラインVR99999。世界のプレイヤーと切磋琢磨し、戦略的な立ち回りを習得",
+    text: "オンラインVR99999。世界のプレイヤーと切磋琢磨し、戦略的な立ち回りを習得。",
   },
 ];
