@@ -9,7 +9,7 @@ import "./globals.css";
 const navItems = [
   { label: "Home", href: "/" },
   { label: "Portfolio", href: "/portfolio" },
-  { label: "AboutMe", href: "/aboutme" },
+  { label: "About", href: "/about" },
   { label: "Blog", href: "/blog" },
   { label: "Hobby", href: "/hobby" },
 ];
