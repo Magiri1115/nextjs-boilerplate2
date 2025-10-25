@@ -26,63 +26,44 @@ export default function HobbyPage() {
   };
 
   return (
-    <div className="w-[80vw] h-[80vh] mx-auto flex flex-col items-center justify-center py-12 px-4 bg-[#0B0B0F] text-white relative overflow-hidden rounded-2xl shadow-lg">
-      {/* 左ボタン（縦長四角） */}
-      <button
-        onClick={prev}
-        className="absolute top-1/2 left-[calc(50%-40%)] -translate-y-1/2 z-50 w-10 h-24 bg-white/20 hover:bg-white/40 text-white text-3xl flex items-center justify-center rounded-md shadow-lg cursor-pointer transition-colors"
-      >
-        ＜
-      </button>
+    <div className="flex flex-col items-center justify-center w-full min-h-screen px-4 py-8 bg-transparent text-white">
+      <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
+        My Hobby
+      </h1>
 
-      {/* 右ボタン（縦長四角） */}
-      <button
-        onClick={next}
-        className="absolute top-1/2 right-[calc(50%-40%)] -translate-y-1/2 z-50 w-10 h-24 bg-white/20 hover:bg-white/40 text-white text-3xl flex items-center justify-center rounded-md shadow-lg cursor-pointer transition-colors"
-      >
-        ＞
-      </button>
-
-      {/* スワイプ操作エリア */}
+      {/* === HobbyCard とボタンを並べるエリア === */}
       <div
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
-        className="flex flex-col items-center justify-center w-full h-full"
+        className="flex items-center justify-center w-full max-w-4xl bg-transparent rounded-2xl shadow-lg p-4 sm:p-6 md:p-8 backdrop-blur-md"
       >
-        <HobbyCard hobby={hobbies[currentIndex]} />
+        {/* 左ボタン（PCのみ表示） */}
+        <button
+          onClick={prev}
+          className="hidden lg:flex w-10 h-20 bg-white/20 hover:bg-white/40 text-white text-3xl items-center justify-center rounded-md shadow-md transition-colors mr-4"
+        >
+          ＜
+        </button>
+
+        {/* HobbyCard（真ん中） */}
+        <div className="flex-1 flex items-center justify-center">
+          <HobbyCard hobby={hobbies[currentIndex]} />
+        </div>
+
+        {/* 右ボタン（PCのみ表示） */}
+        <button
+          onClick={next}
+          className="hidden lg:flex w-10 h-20 bg-white/20 hover:bg-white/40 text-white text-3xl items-center justify-center rounded-md shadow-md transition-colors ml-4"
+        >
+          ＞
+        </button>
       </div>
 
-      {/* フッター（.hobby-borderと横幅を揃える／bottomから15%位置） */}
-      <footer className="absolute bottom-[15%] w-[80%] mx-auto overflow-hidden whitespace-nowrap z-40">
-        <div className="inline-block whitespace-nowrap animate-[marquee_40s_linear_infinite]">
-          <span className="px-8">
-            📧 busmagiri6@gmail.com ｜ 🐙 GitHub:
-            <a
-              href="https://github.com/Magiri1115"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline hover:opacity-80 mx-1"
-            >
-              Magiri1115
-            </a>
-            ｜ 今後：X・Instagram追加予定
-          </span>
-          <span className="px-8">
-            📧 busmagiri6@gmail.com ｜ 🐙 GitHub:
-            <a
-              href="https://github.com/Magiri1115"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline hover:opacity-80 mx-1"
-            >
-              Magiri1115
-            </a>
-            ｜ 今後：X・Instagram追加予定
-          </span>
-        </div>
-      </footer>
+      {/* スマホ・タブレット専用説明文 */}
+      <p className="text-sm text-white/70 mt-4 lg:hidden">
+        左右フリックで趣味を確認
+      </p>
 
-      {/* marquee アニメーション */}
       <style jsx>{`
         @keyframes marquee {
           0% {
